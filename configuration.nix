@@ -77,9 +77,9 @@
     unzip
     pavucontrol
     logseq
-    vscode
     nodejs
     nixpkgs-fmt
+    steam-run
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

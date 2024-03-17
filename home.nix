@@ -15,6 +15,13 @@
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = (_: true);
+    };
+  };
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
@@ -64,6 +71,88 @@
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
+  };
+
+  programs.bash = {
+    enable = true;
+    shellAliases = {
+      ll = "ls -la";
+    };
+    initExtra = ''
+      parse_git_branch() {
+        git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+      }
+      export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\]\n$ "
+    '';
+  };
+
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      zhuangtongfa.material-theme
+      pkief.material-icon-theme
+      dbaeumer.vscode-eslint
+      esbenp.prettier-vscode
+      editorconfig.editorconfig
+      donjayamanne.githistory
+      jnoortheen.nix-ide
+    ];
+    keybindings = [
+      {
+        key = "ctrl+k s";
+        command = "-workbench.action.files.saveWithoutFormatting";
+      }
+      {
+        key = "ctrl+k s";
+        command = "workbench.action.files.saveFiles";
+      }
+    ];
+    userSettings = {
+      window.zoomLevel = 2;
+      window.menuBarVisibility = "toggle";
+      extensions.autoCheckUpdates = false;
+      git.autofetch = true;
+      update.mode = "none";
+      editor.formatOnSave = true;
+      "[nix]" = {
+        "editor.defaultFormatter" = "jnoortheen.nix-ide";
+      };
+      workbench.colorTheme = "One Dark Pro Flat";
+    };
+    enableUpdateCheck = false;
+    mutableExtensionsDir = false;
+    enableExtensionUpdateCheck = true;
+  };
+
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      font = {
+        normal = {
+          family = "Noto Sans Mono";
+        };
+      };
+      window = {
+        decorations = "none";
+        padding = {
+          x = 10;
+          y = 10;
+        };
+        dynamic_padding = true;
+      };
+      key_bindings = [
+        {
+          key = "Minus";
+          mods = "Control";
+          action = "DecreaseFontSize";
+        }
+        {
+          key = "Key3";
+          mods = "Control";
+          action = "IncreaseFontSize";
+        }
+      ];
+    };
   };
 
   # Let Home Manager install and manage itself.
