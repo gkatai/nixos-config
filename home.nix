@@ -25,6 +25,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.ncdu
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -96,6 +97,7 @@
       editorconfig.editorconfig
       donjayamanne.githistory
       jnoortheen.nix-ide
+      file-icons.file-icons
     ];
     keybindings = [
       {
@@ -112,12 +114,17 @@
       window.menuBarVisibility = "toggle";
       extensions.autoCheckUpdates = false;
       git.autofetch = true;
+      git.openRepositoryInParentFolders = "never";
       update.mode = "none";
       editor.formatOnSave = true;
+      editor.defaultFormatter = "esbenp.prettier-vscode";
+      workbench.colorTheme = "One Dark Pro Flat";
       "[nix]" = {
         "editor.defaultFormatter" = "jnoortheen.nix-ide";
       };
-      workbench.colorTheme = "One Dark Pro Flat";
+      workbench.iconTheme = "material-icon-theme";
+      emmet.showAbbreviationSuggestions = false;
+      emmet.showExpandedAbbreviation = "never";
     };
     enableUpdateCheck = false;
     mutableExtensionsDir = false;
@@ -152,6 +159,13 @@
           action = "IncreaseFontSize";
         }
       ];
+    };
+  };
+
+  programs.mpv = {
+    enable = true;
+    config = {
+      save-position-on-quit = true;
     };
   };
 

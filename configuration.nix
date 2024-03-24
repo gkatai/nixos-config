@@ -80,6 +80,8 @@
     nodejs
     nixpkgs-fmt
     steam-run
+    imagemagick_light
+    wl-clipboard
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
