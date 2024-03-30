@@ -98,6 +98,13 @@
       donjayamanne.githistory
       jnoortheen.nix-ide
       file-icons.file-icons
+    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "jsdoc-generator";
+        publisher = "crystal-spider";
+        version = "2.0.2";
+        sha256 = "sha256-q3emOThJ+YJN7j/WtSL0JCFTkVY9DYysUJ44XgN8rSU=";
+      }
     ];
     keybindings = [
       {
@@ -125,6 +132,8 @@
       workbench.iconTheme = "material-icon-theme";
       emmet.showAbbreviationSuggestions = false;
       emmet.showExpandedAbbreviation = "never";
+      jsdoc-generator.includeTime = false;
+      jsdoc-generator.includeDate = false;
     };
     enableUpdateCheck = false;
     mutableExtensionsDir = false;
